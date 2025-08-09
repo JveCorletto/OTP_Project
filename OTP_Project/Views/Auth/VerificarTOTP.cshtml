@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Verificar código TOTP";
+}
+
+<div class="container mt-4" style="max-width:480px;">
+    <h3 class="text-center mb-3">Verificación en dos pasos</h3>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">@TempData["Error"]</div>
+    }
+
+    <form asp-action="VerificarTOTP" asp-controller="Auth" method="post" class="d-flex flex-column align-items-center gap-3" autocomplete="one-time-code">
+        <div class="w-100">
+            <label for="codigo" class="form-label fw-bold">Código del Authenticator</label>
+            <input type="text" id="codigo" name="codigo"
+                   maxlength="9" placeholder="XXX - XXX"
+                   class="form-control text-center fs-4 fw-bold"
+                   style="letter-spacing:4px; text-transform:uppercase;"
+                   inputmode="numeric" oninput="formatearCodigo(this)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100">Verificar</button>
+        <a class="btn btn-link" href="@Url.Action("Login", "Auth")" onclick="sessionStorage.clear()">Cambiar de cuenta</a>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function formatearCodigo(input){
+          let v = input.value.replace(/\D/g,'').slice(0,6);
+          input.value = v.length>3 ? v.slice(0,3)+' - '+v.slice(3) : v;
+        }
+    </script>
+}

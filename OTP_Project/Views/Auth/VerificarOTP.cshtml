@@ -5,6 +5,8 @@
 
 <div class="container mt-5">
     <div class="row justify-content-center">
+        @if (TempData["Error"] != null) { <div class="alert alert-danger text-center">@TempData["Error"]</div> }
+
         <div class="col-md-5">
             <div class="card shadow">
                 <div class="card-header text-center">

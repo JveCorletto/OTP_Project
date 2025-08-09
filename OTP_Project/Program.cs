@@ -1,14 +1,16 @@
 using OTP_Project.Data;
 using OTP_Project.Models;
 using OTP_Project.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<TOTPService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<PasswordHasher<Usuarios>>();
 
